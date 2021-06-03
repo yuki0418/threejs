@@ -47,7 +47,7 @@
       const color = 0xFFFFFF;
       const intensity = 1;
       const light = new THREE.DirectionalLight(color, intensity);
-      light.position.set(0, 0.5, 3);
+      light.position.set(0, 0, 5);
       scene.add(light);
     }
 
@@ -74,12 +74,17 @@
         objTriforce = obj;
 
         const color = new THREE.Color( 0xFFD700 );
-        const emissive = new THREE.Color( 0x000000 );
-        const material = new THREE.MeshStandardMaterial({
+        const emissive = new THREE.Color( 0xFFD700 );
+        // const emissive = new THREE.Color( 0xCCA400 );
+        const material = new THREE.MeshPhysicalMaterial({
           color,
-          emissive,
-          roughness: 0,
-          metallness: 1,
+          // emissive,
+          // roughness: 0.3,
+          // metalness: 0,
+          envMaps: 'reflection',
+          // envMapIntensity: 3,
+          clearcoat: 3,
+          clearcoatRoughness: 0.33
         });
         objTriforce.traverse(child => {
           if (child.type === 'Mesh'){
