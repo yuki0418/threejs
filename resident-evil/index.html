@@ -49,22 +49,20 @@
     const scene = new THREE.Scene();
 
     // Add light
-    // {
-    //   const color = 0xFFFFFF;
-    //   const intensity = 1;
-    //   const light = new THREE.DirectionalLight(color, intensity);
-    //   light.position.set(0, 0, 10);
-    //   scene.add(light);
-    // }
-
-    // Add light 2
     {
       const color = 0xFFFFFF;
       const intensity = 1;
-      const light = new THREE.DirectionalLight(color, intensity, 100);
-      light.position.set(0, 0, 10).normalize();
+      const light = new THREE.DirectionalLight(color, intensity);
+      light.position.set(-1, 2, 4);
       scene.add(light);
     }
+
+    // Add light 2
+    // {
+    //   const light = new THREE.PointLight(0xffffff, 2);
+    //   light.position.set(0, 0, 10);
+    //   scene.add(light);
+    // }
 
     {
       const loader = new THREE.TextureLoader();
@@ -91,15 +89,10 @@
       gltf => {
         obj = gltf;
         scene.add( obj.scene );
-
-        obj.animations; // Array<THREE.AnimationClip>
-        obj.scene; // THREE.Group
-        obj.scenes; // Array<THREE.Group>
-        obj.cameras; // Array<THREE.Camera>
-        obj.asset; // Object
-
         for(let child of obj.scene.children) {
           if(child.type === "Mesh") {
+            console.log(child.material);
+            child.material.roughness = 0.3;
             meshes.push(child);
           }
         };
