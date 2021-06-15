@@ -91,7 +91,7 @@
         scene.add( obj.scene );
         for(let child of obj.scene.children) {
           if(child.type === "Mesh") {
-            console.log(child.material);
+            // console.log(child.material);
             child.material.roughness = 0.3;
             meshes.push(child);
           }
