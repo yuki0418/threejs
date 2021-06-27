@@ -7,11 +7,20 @@
   <title>Three js projects</title>
 </head>
 <body>
-  <main>
-    Hello world!!
-    <a href="../examples/resident-evil/index.html">Index</a>
-  </main>
+  <canvas id="c"></canvas>
 </body>
+
+<style>
+    html, body {
+    height: 100%;
+    margin: 0;
+  }
+  #c {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
 
 <script type="module">
   import {init} from './dist/main.js'
