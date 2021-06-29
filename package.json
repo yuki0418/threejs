@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "snowpack build",
+    "build": "snowpack build && touch ./docs/.nojekyll",
     "start": "snowpack dev",
     "test": "echo 'Error: no test specified' && exit 1"
   },
