@@ -10,4 +10,8 @@ export default {
   plugins: [
     '@snowpack/plugin-typescript'
   ],
+  buildOptions: {
+    baseUrl: '/threejs',
+    out: './docs',
+  },
 };
