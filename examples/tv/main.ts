@@ -1,7 +1,7 @@
 import View, { MainCameraOption, ViewOption } from '../../src/View';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import type { MeshStandardMaterial } from 'three';
+import { MeshStandardMaterial, Vector2 } from 'three';
 
 export const init = async () => {
   const mainCameraOption: MainCameraOption = {
@@ -33,6 +33,8 @@ export const init = async () => {
   let screen = <THREE.Mesh>objs.scene.getObjectByName("Cube_1");
   const videoElm1 = <HTMLVideoElement>document.getElementById('video1');
   const videoTexture = new THREE.VideoTexture(videoElm1);
+  videoTexture.center = new Vector2(0.5, 0.5);
+  videoTexture.repeat.y = - 1;
   let meshMaterial = <MeshStandardMaterial>screen.material;
   meshMaterial.map = videoTexture;
   meshMaterial.needsUpdate = true;

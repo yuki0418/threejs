@@ -1,4 +1,4 @@
-import { aR as EventDispatcher, fH as Vector3, aQ as Euler } from '../../../../common/three.module-602c13f7.js';
+import { aS as EventDispatcher, fH as Vector3, aR as Euler } from '../../../../common/three.module-4df464a4.js';
 
 const _euler = new Euler( 0, 0, 0, 'YXZ' );
 const _vector = new Vector3();
