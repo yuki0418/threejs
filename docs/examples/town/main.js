@@ -1,4 +1,4 @@
-import {resizeRendererToDisplaySize} from "../../dist/view.js";
+import {resizeRendererToDisplaySize} from "../../dist/View.js";
 import * as THREE from "../../_snowpack/pkg/three.js";
 import {GLTFLoader} from "../../_snowpack/pkg/three/examples/jsm/loaders/GLTFLoader.js";
 import {AmbientLight, DirectionalLight, HemisphereLight} from "../../_snowpack/pkg/three.js";

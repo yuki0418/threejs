@@ -1,6 +1,7 @@
 {
   "imports": {
     "three": "./three.js",
+    "three/examples/jsm/controls/OrbitControls.js": "./three/examples/jsm/controls/OrbitControls.js",
     "three/examples/jsm/controls/PointerLockControls.js": "./three/examples/jsm/controls/PointerLockControls.js",
     "three/examples/jsm/loaders/GLTFLoader": "./three/examples/jsm/loaders/GLTFLoader.js"
   }

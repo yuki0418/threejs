@@ -1,4 +1,4 @@
-import { resizeRendererToDisplaySize } from '../../src/view';
+import { resizeRendererToDisplaySize } from '../../src/View';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { AmbientLight, DirectionalLight, HemisphereLight } from 'three';
