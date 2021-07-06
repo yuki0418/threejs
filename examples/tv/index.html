@@ -8,8 +8,10 @@
 </head>
 <body>
   <div id="canvas"></div>
-  <video src="./video1.mp4" id="video1" autoplay muted loop></video>
-  <!-- <canvas id="c"></canvas> -->
+  <video id="video1" loop crossOrigin="anonymous" playsinline style="display:none">
+    <source src="./video1.mp4" type='video/mp4'>
+  </video>
+  <button id="btnPlay">Play</button>
 </body>
 
 <style>
@@ -19,14 +21,19 @@
     position: relative;
   }
 
-  body {
-    overflow: hidden;
-  }
+  button {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
 
-  video {
-    width: 0px;
-    height: 0px;
-    visibility: hidden;
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
   }
 </style>
 

@@ -28,7 +28,6 @@ export const init = async () => {
   objs.scene.rotateY(Math.PI);
   objs.scene.translateY(-0.7);
   view.scene.add(objs.scene);
-  console.log(objs);
   
   let screen = <THREE.Mesh>objs.scene.getObjectByName("Cube_1");
   const videoElm1 = <HTMLVideoElement>document.getElementById('video1');
@@ -38,7 +37,21 @@ export const init = async () => {
   let meshMaterial = <MeshStandardMaterial>screen.material;
   meshMaterial.map = videoTexture;
   meshMaterial.needsUpdate = true;
-  console.log(screen);
+
+  document.getElementById('btnPlay')?.addEventListener('click', () => {
+    var playPromise = videoElm1.play();
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        // Automatic playback started!
+        // Show playing UI.
+      })
+      .catch(error => {
+        // Auto-play was prevented
+        // Show paused UI.
+        alert("Loading video, please try again after 5s");
+      });
+    }
+  });
 
   view.run();
 }
