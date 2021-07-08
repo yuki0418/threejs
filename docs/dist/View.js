@@ -52,9 +52,32 @@ export default class View {
         this.scene.add(light2);
         this.lights.push(light2);
       }
+      this.canvas.addEventListener("click", this.onViewClick, false);
+      this.canvas.addEventListener("mousemove", this.onMouseMove, false);
+    };
+    this.onViewClick = (event) => {
+      this.INTERSECTED?.dispatchEvent({type: "click"});
+    };
+    this.onMouseMove = (event) => {
+      this.mouse.x = event.clientX / this.canvas.width * 2 - 1;
+      this.mouse.y = -(event.clientY / this.canvas.height) * 2 + 1;
+      this.raycaster.setFromCamera(this.mouse, this.mainCamera);
+      const intersects = this.raycaster.intersectObjects(this.scene.children, true);
+      if (intersects.length > 0) {
+        if (intersects[0].object != this.INTERSECTED) {
+          if (this.INTERSECTED)
+            this.INTERSECTED.dispatchEvent({type: "mouseout"});
+          this.INTERSECTED = intersects[0].object;
+          this.INTERSECTED.dispatchEvent({type: "hover"});
+        }
+      } else
+        this.INTERSECTED ? this.INTERSECTED.dispatchEvent({type: "mouseout"}) : this.INTERSECTED = null;
     };
     this.lights = new Array();
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2(0, 0);
     this.init(viewOption);
+    this.INTERSECTED = null;
   }
   run() {
     const render = (time) => {

@@ -20,14 +20,20 @@ export interface MainCameraOption {
 export default class View {
   constructor(viewOption: ViewOption) {
     this.lights = new Array();
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2(0,0);
     this.init(viewOption);
+    this.INTERSECTED = null;
   }
 
   canvas!: HTMLCanvasElement;
   scene!: THREE.Scene;
   renderer!: THREE.WebGLRenderer;
   mainCamera!: THREE.PerspectiveCamera;
+  raycaster: THREE.Raycaster;
+  mouse: THREE.Vector2;
   lights: Array<THREE.Light>;
+  INTERSECTED: THREE.Object3D | null;
 
   init = (viewOption: ViewOption) => {
     // Create view element
@@ -103,6 +109,9 @@ export default class View {
       this.scene.add(light2);
       this.lights.push(light2)
     }
+
+    this.canvas.addEventListener('click', this.onViewClick, false);
+    this.canvas.addEventListener('mousemove', this.onMouseMove, false);
   };
 
   run() {
@@ -131,6 +140,28 @@ export default class View {
       renderer.setSize(width, height, false);
     }
     return needResize;
+  }
+
+  private onViewClick = (event: MouseEvent): void => {
+    this.INTERSECTED?.dispatchEvent({type: 'click'});
+  };
+  
+  private onMouseMove = (event: MouseEvent): void => {
+    this.mouse.x = (event.clientX / this.canvas.width) * 2 - 1;
+    this.mouse.y = - (event.clientY / this.canvas.height) * 2 + 1;
+
+    this.raycaster.setFromCamera(this.mouse, this.mainCamera);
+    const intersects = this.raycaster.intersectObjects(this.scene.children, true);
+    
+    if (intersects.length > 0) {
+      if(intersects[0].object != this.INTERSECTED) {
+        // Dispach mouseout event for INTERSECTED object
+        if(this.INTERSECTED) this.INTERSECTED.dispatchEvent({type: 'mouseout'});
+        this.INTERSECTED = intersects[0].object;
+        this.INTERSECTED.dispatchEvent({type: 'hover'});
+      }
+    } else 
+      this.INTERSECTED ? this.INTERSECTED.dispatchEvent({type: 'mouseout'}) : this.INTERSECTED = null;
   }
 }
 

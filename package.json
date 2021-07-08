@@ -11,6 +11,7 @@
     "@snowpack/plugin-typescript": "^1.2.1",
     "@types/three": "^0.129.1",
     "three": "^0.129.0",
+    "three.interaction": "github:repalash/three.interaction.js#types",
     "typescript": "^4.3.4"
   }
 }

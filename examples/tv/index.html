@@ -9,9 +9,19 @@
 <body>
   <div id="canvas"></div>
   <video id="video1" loop crossOrigin="anonymous" playsinline style="display:none">
+    Video by <a href="https://pixabay.com/users/engin_akyurt-3656355/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=67358">Engin Akyurt</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=67358">Pixabay</a>
     <source src="./video1.mp4" type='video/mp4'>
   </video>
-  <button id="btnPlay">Play</button>
+  <video id="video2" loop crossOrigin="anonymous" playsinline style="display:none">
+    <a href="https://pixabay.com/users/joker911-16105090/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=36510">Ismail Khan</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=36510">Pixabay</a>
+    <source src="./video2.mp4" type='video/mp4'>
+  </video>
+  <video id="video3" loop crossOrigin="anonymous" playsinline style="display:none">
+    Video by <a href="https://pixabay.com/users/vimeo-free-videos-1283884/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=10863">Vimeo-Free-Videos</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=10863">Pixabay</a>
+    <source src="./video3.mp4" type='video/mp4'>
+  </video>
+  <p class="txt">Click Switch to power on and off</p>
+  <p class="txt txt2">Click Selector to change a channel</p>
 </body>
 
 <style>
@@ -21,20 +31,19 @@
     position: relative;
   }
 
-  button {
+  .txt {
     position: absolute;
-    bottom: 1rem;
+    bottom: 2.6rem;
     left: 50%;
     transform: translateX(-50%);
+    display: block;
 
-    padding: 1rem 2rem;
     font-size: 1.4rem;
     font-weight: bold;
     color: #333;
-    border-radius: 3px;
-    background-color: white;
-    cursor: pointer;
   }
+
+  .txt2 { bottom: 1rem; }
 </style>
 
 <script type="module">

@@ -4,6 +4,9 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MeshStandardMaterial, Vector2 } from 'three';
 
 export const init = async () => {
+  let isScreenOn = false;
+  let currentChannel = 0;
+  let screenDefoMap: THREE.Texture;
   const mainCameraOption: MainCameraOption = {
     fov: 45,
     aspect: 2,
@@ -31,27 +34,53 @@ export const init = async () => {
   
   let screen = <THREE.Mesh>objs.scene.getObjectByName("Cube_1");
   const videoElm1 = <HTMLVideoElement>document.getElementById('video1');
-  const videoTexture = new THREE.VideoTexture(videoElm1);
-  videoTexture.center = new Vector2(0.5, 0.5);
-  videoTexture.repeat.y = - 1;
-  let meshMaterial = <MeshStandardMaterial>screen.material;
-  meshMaterial.map = videoTexture;
-  meshMaterial.needsUpdate = true;
+  const videoTexture1 = new THREE.VideoTexture(videoElm1);
+  const videoElm2 = <HTMLVideoElement>document.getElementById('video2');
+  const videoTexture2 = new THREE.VideoTexture(videoElm2);
+  const videoElm3 = <HTMLVideoElement>document.getElementById('video3');
+  const videoTexture3 = new THREE.VideoTexture(videoElm3);
+  videoTexture1.center = new Vector2(0.5, 0.5);
+  videoTexture1.repeat.y = - 1;
+  videoTexture2.center = new Vector2(0.5, 0.5);
+  videoTexture2.repeat.y = - 1;
+  videoTexture3.center = new Vector2(0.5, 0.5);
+  videoTexture3.repeat.y = - 1;
+  let videoTexs = [videoTexture1, videoTexture2, videoTexture3];
+  let screenMat = <MeshStandardMaterial>screen.material;
+  screenDefoMap = <THREE.Texture>screenMat.map;
 
-  document.getElementById('btnPlay')?.addEventListener('click', () => {
-    var playPromise = videoElm1.play();
-    if (playPromise !== undefined) {
-      playPromise.then(_ => {
-        // Automatic playback started!
-        // Show playing UI.
-      })
-      .catch(error => {
-        // Auto-play was prevented
-        // Show paused UI.
-        alert("Loading video, please try again after 5s");
-      });
-    }
-  });
+  let controlerMesh = <THREE.Mesh>objs.scene.getObjectByName("Selector");
+  controlerMesh?.addEventListener('click', (e) => changeChannel());
+  controlerMesh?.addEventListener('hover', (e) => { document.body.style.cursor = 'pointer'; });
+  controlerMesh?.addEventListener('mouseout', (e) => { document.body.style.cursor = 'unset'; });
+  
+  let powerSwitch = <THREE.Mesh>objs.scene.getObjectByName("Switch");
+  powerSwitch?.addEventListener('click', (e) => isScreenOn ? offScreen() : onScreen());
+  powerSwitch?.addEventListener('hover', (e) => { document.body.style.cursor = 'pointer'; });
+  powerSwitch?.addEventListener('mouseout', (e) => { document.body.style.cursor = 'unset'; });
+  
+  const onScreen = async () => {
+    await videoElm1.play();
+    await videoElm2.play();
+    await videoElm3.play();
+    screenMat.map = videoTexs[currentChannel];
+    screenMat.needsUpdate = true;
+    isScreenOn = true;
+  }
+  
+  const offScreen = async () => {
+    isScreenOn = false;
+    screenMat.map = screenDefoMap;
+  };
+
+  const changeChannel = () => {
+    if(!isScreenOn) return;
+    if(currentChannel == 2) currentChannel = 0;
+    else currentChannel++;
+
+    screenMat.map = videoTexs[currentChannel];
+    screenMat.needsUpdate = true;
+  }
 
   view.run();
 }
