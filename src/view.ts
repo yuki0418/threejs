@@ -111,7 +111,9 @@ export default class View {
     }
 
     this.canvas.addEventListener('click', this.onViewClick, false);
+    this.canvas.addEventListener('touchend', this.onTouchEnd, false);
     this.canvas.addEventListener('mousemove', this.onMouseMove, false);
+    this.canvas.addEventListener('touchmove', this.onTouchMove, false);
   };
 
   run() {
@@ -145,11 +147,27 @@ export default class View {
   private onViewClick = (event: MouseEvent): void => {
     this.INTERSECTED?.dispatchEvent({type: 'click'});
   };
+
+  private onTouchEnd = (event: TouchEvent): void => {
+    this.mouse.x = (event.changedTouches[0].clientX / this.canvas.width) * 2 - 1;
+    this.mouse.y = - (event.changedTouches[0].clientY / this.canvas.height) * 2 + 1;
+    this.findIntersected();
+    this.INTERSECTED?.dispatchEvent({type: 'click'});
+  };
   
   private onMouseMove = (event: MouseEvent): void => {
     this.mouse.x = (event.clientX / this.canvas.width) * 2 - 1;
     this.mouse.y = - (event.clientY / this.canvas.height) * 2 + 1;
+    this.findIntersected();
+  }
 
+  private onTouchMove = (event: TouchEvent): void => {
+    this.mouse.x = (event.touches[0].clientX / this.canvas.width) * 2 - 1;
+    this.mouse.y = - (event.touches[0].clientY / this.canvas.height) * 2 + 1;
+    this.findIntersected();
+  }
+  
+  private findIntersected = () => {
     this.raycaster.setFromCamera(this.mouse, this.mainCamera);
     const intersects = this.raycaster.intersectObjects(this.scene.children, true);
     
@@ -164,6 +182,7 @@ export default class View {
       this.INTERSECTED ? this.INTERSECTED.dispatchEvent({type: 'mouseout'}) : this.INTERSECTED = null;
   }
 }
+
 
 export function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
   const canvas = renderer.domElement;

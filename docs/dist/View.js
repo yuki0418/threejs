@@ -53,14 +53,30 @@ export default class View {
         this.lights.push(light2);
       }
       this.canvas.addEventListener("click", this.onViewClick, false);
+      this.canvas.addEventListener("touchend", this.onTouchEnd, false);
       this.canvas.addEventListener("mousemove", this.onMouseMove, false);
+      this.canvas.addEventListener("touchmove", this.onTouchMove, false);
     };
     this.onViewClick = (event) => {
+      this.INTERSECTED?.dispatchEvent({type: "click"});
+    };
+    this.onTouchEnd = (event) => {
+      this.mouse.x = event.changedTouches[0].clientX / this.canvas.width * 2 - 1;
+      this.mouse.y = -(event.changedTouches[0].clientY / this.canvas.height) * 2 + 1;
+      this.findIntersected();
       this.INTERSECTED?.dispatchEvent({type: "click"});
     };
     this.onMouseMove = (event) => {
       this.mouse.x = event.clientX / this.canvas.width * 2 - 1;
       this.mouse.y = -(event.clientY / this.canvas.height) * 2 + 1;
+      this.findIntersected();
+    };
+    this.onTouchMove = (event) => {
+      this.mouse.x = event.touches[0].clientX / this.canvas.width * 2 - 1;
+      this.mouse.y = -(event.touches[0].clientY / this.canvas.height) * 2 + 1;
+      this.findIntersected();
+    };
+    this.findIntersected = () => {
       this.raycaster.setFromCamera(this.mouse, this.mainCamera);
       const intersects = this.raycaster.intersectObjects(this.scene.children, true);
       if (intersects.length > 0) {
