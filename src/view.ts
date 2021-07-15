@@ -116,7 +116,7 @@ export default class View {
     this.canvas.addEventListener('touchmove', this.onTouchMove, false);
   };
 
-  run() {
+  run(update?: Function) {
     const render = (time: number) => {
       time *= 0.001;
 
@@ -124,7 +124,11 @@ export default class View {
         const canvas = this.renderer.domElement;
         this.mainCamera.aspect = canvas?.clientWidth / canvas?.clientHeight;
         this.mainCamera.updateProjectionMatrix();
-      } 
+      }
+
+      if(update) {
+        update(time);
+      }
 
       this.renderer.render(this.scene, this.mainCamera);
   

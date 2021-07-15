@@ -1,5 +1,6 @@
 {
   "imports": {
+    "cannon-es": "./cannon-es.js",
     "three": "./three.js",
     "three/examples/jsm/controls/OrbitControls.js": "./three/examples/jsm/controls/OrbitControls.js",
     "three/examples/jsm/controls/PointerLockControls.js": "./three/examples/jsm/controls/PointerLockControls.js",

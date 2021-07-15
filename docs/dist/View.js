@@ -95,13 +95,16 @@ export default class View {
     this.init(viewOption);
     this.INTERSECTED = null;
   }
-  run() {
+  run(update) {
     const render = (time) => {
       time *= 1e-3;
       if (this.resizeRendererToDisplaySize(this.renderer)) {
         const canvas = this.renderer.domElement;
         this.mainCamera.aspect = canvas?.clientWidth / canvas?.clientHeight;
         this.mainCamera.updateProjectionMatrix();
+      }
+      if (update) {
+        update(time);
       }
       this.renderer.render(this.scene, this.mainCamera);
       requestAnimationFrame(render);
