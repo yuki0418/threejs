@@ -18,6 +18,7 @@ export const init = () => {
   let body: any;
   let sphereBody: CANNON.Body;
   let floorBody: CANNON.Body;
+  let joinBody: CANNON.Body;
   const timeStep = 1 / 60;
   let lastCallTime: any;
 
@@ -96,6 +97,14 @@ export const init = () => {
     floorBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
     floorBody.position.set(0, -1, 0);
     world.addBody(floorBody);
+
+    // JoinBoyd
+    const joinShape = new CANNON.Sphere(0.1);
+    joinBody = new CANNON.Body({mass: 0});
+    joinBody.addShape(joinShape);
+    joinBody.collisionFilterGroup = 0;
+    joinBody.collisionFilterMask = 0;
+    world.addBody(joinBody);
   };
 
   const animate = () => {
@@ -142,6 +151,10 @@ export const init = () => {
     if(clickMarker) clickMarker.visible = false;
   }
 
+  const addJointConstraint = (position: any, constrainedBody: CANNON.Body) => {
+    // const vector = new CANNON.Vec3.copy(posvh
+  }
+
   const onMouseDown = (e: MouseEvent) => {
     isMouseDown = true;
     let entry = findNearestIntersectingObject();
@@ -149,6 +162,7 @@ export const init = () => {
     let pos = entry.point;
     // Set marker on contact point
     setClickMarker(pos.x, pos.y, pos.z);
+    addJointConstraint(pos, sphereBody);
   };
 
   const onMouseMove = (e: MouseEvent) => {
@@ -161,6 +175,8 @@ export const init = () => {
       let pos = entry.point;
       // Set marker on contact point
       setClickMarker(pos.x, pos.y, pos.z);
+
+
     }
   };
 

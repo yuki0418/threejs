@@ -52,14 +52,17 @@ export default class View {
       alpha: true,
     });
     this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0x00000); // Default color is 0x000000
 
     // Initialize the main camera
     const mainCameraOptions = viewOption.mainCameraOption;
+    console.log(mainCameraOptions);
+    
     this.mainCamera = new THREE.PerspectiveCamera(
       mainCameraOptions?.fov || 45,
       mainCameraOptions?.aspect || 2,
       mainCameraOptions?.near || 0.1,
-      mainCameraOptions?.fov || 1000,
+      mainCameraOptions?.far || 1000,
     );
     this.mainCamera.position.set(
       mainCameraOptions?.position.x || 0,
@@ -93,21 +96,21 @@ export default class View {
         bgColor2: '#353535'
       }
   
-      const hemiLight = new HemisphereLight(0xffffbb, 0x080820, 1);
+      const hemiLight = new HemisphereLight(0xffffff, 0x000000, 1);
       hemiLight.name = 'hemi_light';
       this.scene.add(hemiLight);
       this.lights.push(hemiLight);
   
-      const light1 = new AmbientLight(state.ambientColor, state.ambientIntensity);
-      light1.name = 'ambient_light';
-      this.scene.add(light1);
-      this.lights.push(light1)
+      const ambuLight = new AmbientLight(state.ambientColor, state.ambientIntensity);
+      ambuLight.name = 'ambient_light';
+      this.scene.add(ambuLight);
+      this.lights.push(ambuLight)
       
-      const light2 = new DirectionalLight(state.directColor, state.directIntensity);
-      light2.position.set(0, 0, -3);
-      light2.name = 'main_light';
-      this.scene.add(light2);
-      this.lights.push(light2)
+      const directLight = new DirectionalLight(state.directColor, state.directIntensity);
+      directLight.position.set(0, 0, -3);
+      directLight.name = 'main_light';
+      this.scene.add(directLight);
+      this.lights.push(directLight)
     }
 
     this.canvas.addEventListener('click', this.onViewClick, false);

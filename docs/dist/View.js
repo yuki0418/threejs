@@ -17,8 +17,10 @@ export default class View {
         alpha: true
       });
       this.scene = new THREE.Scene();
+      this.scene.background = new THREE.Color(0);
       const mainCameraOptions = viewOption.mainCameraOption;
-      this.mainCamera = new THREE.PerspectiveCamera(mainCameraOptions?.fov || 45, mainCameraOptions?.aspect || 2, mainCameraOptions?.near || 0.1, mainCameraOptions?.fov || 1e3);
+      console.log(mainCameraOptions);
+      this.mainCamera = new THREE.PerspectiveCamera(mainCameraOptions?.fov || 45, mainCameraOptions?.aspect || 2, mainCameraOptions?.near || 0.1, mainCameraOptions?.far || 1e3);
       this.mainCamera.position.set(mainCameraOptions?.position.x || 0, mainCameraOptions?.position.y || 0, mainCameraOptions?.position.z || 0);
       this.mainCamera.lookAt(mainCameraOptions?.lookAt.x || 0, mainCameraOptions?.lookAt.y || 0, mainCameraOptions?.lookAt.z || 0);
       if (viewOption.orbitControls) {
@@ -38,19 +40,19 @@ export default class View {
           bgColor1: "#ffffff",
           bgColor2: "#353535"
         };
-        const hemiLight = new HemisphereLight(16777147, 526368, 1);
+        const hemiLight = new HemisphereLight(16777215, 0, 1);
         hemiLight.name = "hemi_light";
         this.scene.add(hemiLight);
         this.lights.push(hemiLight);
-        const light1 = new AmbientLight(state.ambientColor, state.ambientIntensity);
-        light1.name = "ambient_light";
-        this.scene.add(light1);
-        this.lights.push(light1);
-        const light2 = new DirectionalLight(state.directColor, state.directIntensity);
-        light2.position.set(0, 0, -3);
-        light2.name = "main_light";
-        this.scene.add(light2);
-        this.lights.push(light2);
+        const ambuLight = new AmbientLight(state.ambientColor, state.ambientIntensity);
+        ambuLight.name = "ambient_light";
+        this.scene.add(ambuLight);
+        this.lights.push(ambuLight);
+        const directLight = new DirectionalLight(state.directColor, state.directIntensity);
+        directLight.position.set(0, 0, -3);
+        directLight.name = "main_light";
+        this.scene.add(directLight);
+        this.lights.push(directLight);
       }
       this.canvas.addEventListener("click", this.onViewClick, false);
       this.canvas.addEventListener("touchend", this.onTouchEnd, false);

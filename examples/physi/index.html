@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cannon ES</title>
+</head>
+<body>
+  <div id="canvas"></div>
+  <div class="actions">
+    <button id="btnSphere">Sphere</button>
+    <button id="btnCube">Cube</button>
+  </div>
+</body>
+
+<style>
+  html, body, #canvas {
+    height: 100%;
+    margin: 0;
+    position: relative;
+  }
+
+  #canvas {
+    z-index: 1;
+  }
+
+  .actions {
+    z-index: 2;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.2rem;
+  }
+</style>
+
+<script type="module">
+  import { init } from './main.js';
+
+  init();
+</script>
+</html>

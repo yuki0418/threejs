@@ -11,6 +11,7 @@ export const init = () => {
   let body;
   let sphereBody;
   let floorBody;
+  let joinBody;
   const timeStep = 1 / 60;
   let lastCallTime;
   let isMouseDown = false;
@@ -51,6 +52,12 @@ export const init = () => {
     floorBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
     floorBody.position.set(0, -1, 0);
     world.addBody(floorBody);
+    const joinShape = new CANNON.Sphere(0.1);
+    joinBody = new CANNON.Body({mass: 0});
+    joinBody.addShape(joinShape);
+    joinBody.collisionFilterGroup = 0;
+    joinBody.collisionFilterMask = 0;
+    world.addBody(joinBody);
   };
   const animate = () => {
     requestAnimationFrame(animate);
@@ -85,6 +92,8 @@ export const init = () => {
     if (clickMarker)
       clickMarker.visible = false;
   };
+  const addJointConstraint = (position, constrainedBody) => {
+  };
   const onMouseDown = (e) => {
     isMouseDown = true;
     let entry = findNearestIntersectingObject();
@@ -92,6 +101,7 @@ export const init = () => {
       return;
     let pos = entry.point;
     setClickMarker(pos.x, pos.y, pos.z);
+    addJointConstraint(pos, sphereBody);
   };
   const onMouseMove = (e) => {
     mouse.x = e.clientX / window.innerWidth * 2 - 1;
