@@ -30,6 +30,8 @@ export const init = () => {
   view.run(update);
 };
 const update = (time) => {
+  if (!token)
+    return;
   let desired = target.clone().sub(token.position);
   token.translateX(desired.x * speed.x);
 };

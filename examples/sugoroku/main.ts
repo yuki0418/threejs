@@ -42,6 +42,7 @@ export const init = () => {
 }
 
 const update = (time: number) => {
+  if(!token) return;
   let desired = target.clone().sub(token.position);
   token.translateX(desired.x * speed.x);
 }
