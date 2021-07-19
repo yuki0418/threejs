@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sugoroku</title>
+</head>
+<body>
+  <div id="canvas"></div>
+  <div class="lay">
+    <button id="btnGo">Go</button>
+    <button id="btnBack">Back</button>
+  </div>
+</body>
+
+<style>
+  html, body, #canvas {
+    height: 100%;
+    margin: 0;
+    position: relative;
+  }
+
+  .lay {
+    position: absolute;
+    bottom: 10rem;
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+</style>
+
+<script type="module">
+  import { init } from './main.js';
+
+  init();
+</script>
+</html>

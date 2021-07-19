@@ -1,6 +1,6 @@
 import * as THREE from "../_snowpack/pkg/three.js";
 import {OrbitControls} from "../_snowpack/pkg/three/examples/jsm/controls/OrbitControls.js";
-import {AmbientLight, DirectionalLight, HemisphereLight} from "../_snowpack/pkg/three.js";
+import {AmbientLight, DirectionalLight} from "../_snowpack/pkg/three.js";
 export default class View {
   constructor(viewOption) {
     this.init = (viewOption) => {
@@ -19,7 +19,6 @@ export default class View {
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color(0);
       const mainCameraOptions = viewOption.mainCameraOption;
-      console.log(mainCameraOptions);
       this.mainCamera = new THREE.PerspectiveCamera(mainCameraOptions?.fov || 45, mainCameraOptions?.aspect || 2, mainCameraOptions?.near || 0.1, mainCameraOptions?.far || 1e3);
       this.mainCamera.position.set(mainCameraOptions?.position.x || 0, mainCameraOptions?.position.y || 0, mainCameraOptions?.position.z || 0);
       this.mainCamera.lookAt(mainCameraOptions?.lookAt.x || 0, mainCameraOptions?.lookAt.y || 0, mainCameraOptions?.lookAt.z || 0);
@@ -40,10 +39,6 @@ export default class View {
           bgColor1: "#ffffff",
           bgColor2: "#353535"
         };
-        const hemiLight = new HemisphereLight(16777215, 0, 1);
-        hemiLight.name = "hemi_light";
-        this.scene.add(hemiLight);
-        this.lights.push(hemiLight);
         const ambuLight = new AmbientLight(state.ambientColor, state.ambientIntensity);
         ambuLight.name = "ambient_light";
         this.scene.add(ambuLight);

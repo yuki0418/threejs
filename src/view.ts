@@ -56,7 +56,6 @@ export default class View {
 
     // Initialize the main camera
     const mainCameraOptions = viewOption.mainCameraOption;
-    console.log(mainCameraOptions);
     
     this.mainCamera = new THREE.PerspectiveCamera(
       mainCameraOptions?.fov || 45,
@@ -96,10 +95,10 @@ export default class View {
         bgColor2: '#353535'
       }
   
-      const hemiLight = new HemisphereLight(0xffffff, 0x000000, 1);
-      hemiLight.name = 'hemi_light';
-      this.scene.add(hemiLight);
-      this.lights.push(hemiLight);
+      // const hemiLight = new HemisphereLight(0xffffff, 0x000000, 1);
+      // hemiLight.name = 'hemi_light';
+      // this.scene.add(hemiLight);
+      // this.lights.push(hemiLight);
   
       const ambuLight = new AmbientLight(state.ambientColor, state.ambientIntensity);
       ambuLight.name = 'ambient_light';
