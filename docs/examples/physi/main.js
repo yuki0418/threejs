@@ -24,9 +24,8 @@ export const init = () => {
     orbitControls: true
   };
   view = new View(viewOption);
-  view.lights[1].removeFromParent();
-  view.lights[2].position.set(10, 10, 10);
-  view.lights[2].intensity = 0.3;
+  view.lights[1].position.set(10, 10, 10);
+  view.lights[1].intensity = 0.3;
   world = new CANNON.World({gravity: new CANNON.Vec3(0, -15, 0)});
   initFloor();
   view.run(update);

@@ -24,6 +24,8 @@ export const init = async () => {
 
   let view = new View(viewOption);
 
+  view.scene.background = new THREE.Color('#555');
+
   // Add object
   const gltfLoader = new GLTFLoader();
   const url = './tv.gltf';

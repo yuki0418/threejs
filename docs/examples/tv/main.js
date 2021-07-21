@@ -20,6 +20,7 @@ export const init = async () => {
     orbitControls: true
   };
   let view = new View(viewOption);
+  view.scene.background = new THREE.Color("#555");
   const gltfLoader = new GLTFLoader();
   const url = "./tv.gltf";
   let objs = await gltfLoader.loadAsync(url);
